@@ -6,11 +6,11 @@
   flex-direction: column;
 
   .cover {
+    text-align: center;
     img {
       width: 20%;
       border-radius: 50%;
       object-fit: cover;
-      text-align: center;
     }
   }
   .lecture-info {
