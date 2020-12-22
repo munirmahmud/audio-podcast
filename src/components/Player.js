@@ -1,13 +1,22 @@
-import { faAngleLeft, faAngleRight, faPlay } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import { faAngleLeft, faAngleRight, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useRef } from 'react';
 
-const Player = () => {
+const Player = ({currentSong, isPlaying, setIsPlaying}) => {
+    const audioRef = useRef(null);
+    
+    const playSongHandler = () => {
+        if(isPlaying) {
+            setIsPlaying(!isPlaying)
+            audioRef.current.pause();
+        } else {
+            setIsPlaying(!isPlaying)
+            audioRef.current.play();
+        }
+    };
+    
     return (
         <div className="player">
-            <h1>
-                Player
-            </h1>
             <div className="time-control">
                 <p>Start Time</p>
                 <input type="range"/>
@@ -15,9 +24,11 @@ const Player = () => {
             </div>
             <div className="play-control">
                 <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} />
-                <FontAwesomeIcon className="play" size="2x" icon={faPlay} />
+                <FontAwesomeIcon className="play" onClick={playSongHandler} size="2x" icon={faPlay} />
                 <FontAwesomeIcon className="skip-forward" size="2x" icon={faAngleRight} />
             </div>
+
+            <audio ref={audioRef} src={currentSong.audio}></audio>
         </div>
     )
 }
