@@ -5,8 +5,8 @@ import Song from './components/Song'
 import data from './data/podcasts'
 
 const App = () => {
-    const [lectures, setLectures] = useState(data());
-    const [currentSong, setCurrentSong] = useState(lectures[0]);
+    const [songs, setSong] = useState(data());
+    const [currentSong, setCurrentSong] = useState(songs[0]);
     const [isPlaying, setIsPlaying] = useState(false);
     
     return (
@@ -16,7 +16,12 @@ const App = () => {
                 currentSong={currentSong} 
                 isPlaying={isPlaying} 
                 setIsPlaying={setIsPlaying} />
-                <Library songs={lectures} />
+                <Library 
+                    songs={songs} 
+                    setCurrentSong={setCurrentSong}
+                    isPlaying={isPlaying}
+                    setSong={setSong}
+                 />
 
         </div>
     )
