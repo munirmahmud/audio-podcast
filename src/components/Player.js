@@ -35,6 +35,13 @@ const Player = ({songs, setCurrentSong, currentSong, audioRef,songInfo, setSongI
         if(direction === 'forward') {
             setCurrentSong(songs[(currentIndex + 1) % songs.length]);
         }
+        if(direction === 'backward') {
+            if((currentIndex - 1) % songs.length === -1) {
+                setCurrentSong(songs[songs.length - 1]);
+                return;
+            }
+            setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+        }
     };
 
     return (

@@ -47,7 +47,7 @@ const App = () => {
                 onTimeUpdate={timeUpdateHandler}
                 onLoadedMetadata={timeUpdateHandler}
                 ref={audioRef} 
-                src={currentSong.audio}
+                src={currentSong?.audio}
                 />
 
                 <Library 
