@@ -6,6 +6,14 @@
   height: 100%;
   box-shadow: 2px 2px 50px rgg(204, 204, 204);
   overflow-y: scroll;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
+
+  &.active {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 
   h2 {
     padding: 2rem;
@@ -27,6 +35,7 @@
         width: 25%;
       }
 
+      &.active,
       &:hover {
         background: rgb(240, 240, 240);
       }
