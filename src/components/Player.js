@@ -57,12 +57,15 @@ const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo,
         <div className="player">
             <div className="time-control">
                 <p>{timeFormat(songInfo.currentTime)}</p>
-                <input 
-                    min={0} 
-                    max={songInfo?.duration || 0 } 
-                    value={songInfo?.currentTime}
-                    onChange={dragHandler}
-                    type="range" />
+                <div className="track" style={{background: `linear-gradient(to right, ${currentSong?.color[0]}, ${currentSong?.color[1]})`}}>
+                    <input 
+                        min={0} 
+                        max={songInfo?.duration || 0 } 
+                        value={songInfo?.currentTime}
+                        onChange={dragHandler}
+                        type="range" />
+                    <div className="animate-track" style={{transform: `translateX(${songInfo?.sliderThumb}%)`}} />
+                </div>
                 <p>{songInfo.duration ? timeFormat(songInfo.duration) : "00:00"}</p>
             </div>
             <div className="play-control">

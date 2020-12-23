@@ -11,22 +11,28 @@ const App = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [libraryStatus, setLibraryStatus] = useState(false);
     const audioRef = useRef(null);
+    const [songInfo, setSongInfo] = useState({
+        currentTime: "0",
+        duration: 0,
+        sliderThumb: 0,
+    });
 
     const timeUpdateHandler = e => {
         const currentTime = e.target.currentTime,
             duration = e.target.duration;
 
+            // Calculate audio time
+            const roundedCurrent = Math.round(currentTime);
+            const roundedDuration = Math.round(duration);
+            const animation = Math.round((roundedCurrent / roundedDuration) * 100)
+
         setSongInfo({
             ...songInfo,
             currentTime,
-            duration
+            duration,
+            sliderThumb: animation
         });
     };
-
-    const [songInfo, setSongInfo] = useState({
-        currentTime: "0",
-        duration: 0
-    });
     
     return (
         <div className="app">
