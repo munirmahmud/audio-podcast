@@ -1,7 +1,7 @@
 import { faAngleLeft, faAngleRight, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
-import { playAudio } from '../helpers';
+import { playAudio, timeFormat } from '../helpers';
 
 const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo, setSongInfo, isPlaying, setIsPlaying}) => {
 
@@ -26,12 +26,6 @@ const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo,
         }
     };
 
-    const timeFormat = (time) => {
-        return(
-            Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
-        );
-    };
-
     const dragHandler = e => {
         audioRef.current.currentTime = e.target.value;
         
@@ -50,6 +44,7 @@ const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo,
         if(direction === 'backward') {
             if((currentIndex - 1) % songs.length === -1) {
                 setCurrentSong(songs[songs.length - 1]);
+                playAudio(isPlaying, audioRef);
                 return;
             }
             setCurrentSong(songs[(currentIndex - 1) % songs.length]);
@@ -61,14 +56,14 @@ const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo,
     return (
         <div className="player">
             <div className="time-control">
-                <p>{timeFormat(songInfo?.currentTime)}</p>
+                <p>{timeFormat(songInfo.currentTime)}</p>
                 <input 
                     min={0} 
                     max={songInfo?.duration || 0 } 
                     value={songInfo?.currentTime}
                     onChange={dragHandler}
                     type="range" />
-                <p>{timeFormat(songInfo?.duration)}</p>
+                <p>{songInfo.duration ? timeFormat(songInfo.duration) : "00:00"}</p>
             </div>
             <div className="play-control">
                 <FontAwesomeIcon onClick={() => skipTrackHandler("backward")} className="skip-back" size="2x" icon={faAngleLeft} />
