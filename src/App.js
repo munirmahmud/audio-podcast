@@ -40,6 +40,7 @@ const App = () => {
                 setSongInfo={setSongInfo}
                 songInfo={songInfo}
                 songs={songs}
+                setSong={setSong}
                 setCurrentSong={setCurrentSong}
                 />
 
