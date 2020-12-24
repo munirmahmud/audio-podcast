@@ -1,20 +1,19 @@
 import { faAngleLeft, faAngleRight, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { timeFormat } from '../helpers';
 
 const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo, setSongInfo, isPlaying, setIsPlaying}) => {
-
-    useEffect(() => {
+    const activeLibraryHandler = (netPrev) => {
         const activeSong = songs.map(song => {
-            if(song.id === currentSong.id) {
+            if(song.id === netPrev.id) {
                 return {...song, active: true}
             } else {
                 return {...song, active: false}
             }
         });
         setSong(activeSong);
-    }, [currentSong]);
+    };
     
     const playSongHandler = () => {
         if(isPlaying) {
@@ -40,14 +39,17 @@ const Player = ({songs, setSong, setCurrentSong, currentSong, audioRef,songInfo,
 
         if(direction === 'forward') {
             await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+            activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
         }
         if(direction === 'backward') {
             if((currentIndex - 1) % songs.length === -1) {
                 await setCurrentSong(songs[songs.length - 1]);
+                activeLibraryHandler(songs[songs.length - 1]);
                 if(isPlaying) audioRef.current.play();
                 return;
             }
             await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+            activeLibraryHandler(songs[(currentIndex - 1) % songs.length])
         }
 
         if(isPlaying) audioRef.current.play();
