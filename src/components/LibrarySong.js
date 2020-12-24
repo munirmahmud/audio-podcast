@@ -1,5 +1,4 @@
 import React from 'react';
-import { playAudio } from '../helpers';
 
 const LibrarySong = ({song, songs, audioRef, setCurrentSong, isPlaying, setSong}) => {
     const id = song.id;
@@ -18,7 +17,7 @@ const LibrarySong = ({song, songs, audioRef, setCurrentSong, isPlaying, setSong}
         setSong(activeSong);
 
         // Promise for playing audio
-        playAudio(isPlaying, audioRef);
+        if(isPlaying) audioRef.current.play();
     };
 
     return (
