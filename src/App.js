@@ -33,6 +33,13 @@ const App = () => {
             sliderThumb: animation
         });
     };
+
+    const songEndHandler = async () => {
+        const currentIndex = songs.findIndex(song => song.id === currentSong.id);
+
+        await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+        if(isPlaying) audioRef.current.play();
+    };
     
     return (
         <div className="app">
@@ -55,6 +62,7 @@ const App = () => {
                 onLoadedMetadata={timeUpdateHandler}
                 ref={audioRef} 
                 src={currentSong?.audio}
+                onEnded={songEndHandler}
                 />
 
                 <Library 
