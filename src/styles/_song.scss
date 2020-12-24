@@ -22,3 +22,13 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .song-wrapper {
+    .cover {
+      img {
+        width: 60%;
+      }
+    }
+  }
+}

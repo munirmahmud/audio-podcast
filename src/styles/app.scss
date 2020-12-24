@@ -20,6 +20,20 @@ h4 {
   color: rgb(100, 100, 100);
 }
 
+.app {
+  transition: all 0.5s ease;
+  &.active {
+    margin-left: 30%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app {
+    &.active {
+      margin: 0;
+    }
+  }
+}
 @import "./_nav.scss";
 @import "./_song.scss";
 @import "./_player.scss";
